@@ -74,16 +74,16 @@ export default function Booking() {
   }
 
   return (
-    <section className="container-page py-16">
+    <section className="container-page py-10 sm:py-16">
       <div className="mb-8">
         <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Reservas</p>
         <h1 className="section-title">Reservar turno</h1>
         <p className="mt-3 max-w-2xl text-slate-400">Elegis servicio, barbero, fecha y horario. El sistema bloquea turnos ocupados automaticamente.</p>
       </div>
 
-      <div className="mb-8 grid gap-3 md:grid-cols-4">
+      <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
         {["Servicio", "Barbero", "Fecha", "Confirmacion"].map((step, index) => (
-          <div key={step} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
+          <div key={step} className="rounded-lg border border-white/10 bg-white/[0.04] p-3 sm:p-4">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold">Paso {index + 1}</p>
             <p className="mt-1 font-semibold text-white">{step}</p>
           </div>
@@ -91,7 +91,7 @@ export default function Booking() {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-4 sm:p-6">
           <div className="grid gap-5">
             <div>
               <label className="label">Servicio</label>
@@ -102,7 +102,7 @@ export default function Booking() {
 
             <div>
               <label className="label">Preferencia de barbero</label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid gap-2 sm:grid-cols-2">
                 <label className={`rounded-md border p-3 text-sm font-bold ${anyBarber ? "border-gold bg-gold text-ink" : "border-white/10 bg-white/5"}`}>
                   <input className="sr-only" type="radio" value="true" {...register("anyBarber")} /> Cualquiera
                 </label>
@@ -139,8 +139,8 @@ export default function Booking() {
           </div>
         </form>
 
-        <div className="glass-panel rounded-lg p-6">
-          <div className="mb-5 flex items-center gap-3"><Scissors className="text-gold" /><h2 className="text-2xl font-bold">Horarios disponibles</h2></div>
+        <div className="glass-panel rounded-lg p-4 sm:p-6">
+          <div className="mb-5 flex items-center gap-3"><Scissors className="text-gold" /><h2 className="text-xl font-bold sm:text-2xl">Horarios disponibles</h2></div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {slots.map((slot) => {
               const time = slot.time;
@@ -159,8 +159,8 @@ export default function Booking() {
                   <h3 className="text-xl font-bold text-white">Turno confirmado</h3>
                   <p className="mt-2 text-sm leading-6 text-teal-50">{appointmentMessage(confirmed, "Turno reservado")}</p>
                   <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                    <a className="btn-primary" href={whatsappUrl(bootstrap.business?.phone, appointmentMessage(confirmed))} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Enviar por WhatsApp</a>
-                    <Link className="btn-secondary" to="/mis-reservas">Ver mis reservas</Link>
+                    <a className="btn-primary w-full sm:w-auto" href={whatsappUrl(bootstrap.business?.phone, appointmentMessage(confirmed))} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Enviar por WhatsApp</a>
+                    <Link className="btn-secondary w-full sm:w-auto" to="/mis-reservas">Ver mis reservas</Link>
                   </div>
                 </div>
               </div>

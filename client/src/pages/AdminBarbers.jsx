@@ -91,7 +91,7 @@ export default function AdminBarbers() {
   }
 
   return (
-    <section className="container-page py-16">
+    <section className="container-page py-10 sm:py-16">
       <AdminNav />
       <div className="mb-8">
         <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Gestion</p>
@@ -101,7 +101,7 @@ export default function AdminBarbers() {
 
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="space-y-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-lg p-4 sm:p-6">
             <h2 className="mb-5 text-xl font-bold">{editing ? "Editar barbero" : "Nuevo barbero"}</h2>
             <div className="grid gap-4">
               <input className="input" placeholder="Nombre" {...register("name", { required: true })} />
@@ -115,16 +115,16 @@ export default function AdminBarbers() {
             </div>
           </form>
 
-          <div className="glass-panel rounded-lg p-6">
+          <div className="glass-panel rounded-lg p-4 sm:p-6">
             <h2 className="mb-5 flex items-center gap-2 text-xl font-bold"><Clock className="text-gold" /> Horarios</h2>
             <p className="mb-4 text-sm text-slate-400">{selectedScheduleBarber ? `Editando a ${selectedScheduleBarber.name}` : "Selecciona un barbero para editar sus horarios."}</p>
             <div className="grid gap-4">
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                 {days.map((day) => (
                   <button key={day.value} type="button" onClick={() => toggleDay(day.value)} className={`rounded-md border px-3 py-2 text-sm font-bold ${schedule.days.includes(day.value) ? "border-gold bg-gold text-ink" : "border-white/10 bg-white/5 text-slate-300"}`}>{day.label}</button>
                 ))}
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <input className="input" type="time" value={schedule.startTime} onChange={(event) => setSchedule((current) => ({ ...current, startTime: event.target.value }))} />
                 <input className="input" type="time" value={schedule.endTime} onChange={(event) => setSchedule((current) => ({ ...current, endTime: event.target.value }))} />
               </div>
@@ -146,9 +146,9 @@ export default function AdminBarbers() {
                 <p className="mt-2 text-sm text-slate-300">{availabilityText(barber.availability)}</p>
               </div>
               <div className="flex gap-2 sm:flex-col">
-                <button className="btn-secondary px-3" onClick={() => edit(barber)} aria-label="Editar"><Edit3 size={16} /></button>
-                <button className="btn-secondary px-3" onClick={() => openSchedule(barber)} aria-label="Horarios"><Clock size={16} /></button>
-                <button className="btn-secondary px-3" onClick={() => remove(barber.id)} aria-label="Eliminar"><Trash2 size={16} /></button>
+                <button className="btn-secondary flex-1 px-3 sm:flex-none" onClick={() => edit(barber)} aria-label="Editar"><Edit3 size={16} /></button>
+                <button className="btn-secondary flex-1 px-3 sm:flex-none" onClick={() => openSchedule(barber)} aria-label="Horarios"><Clock size={16} /></button>
+                <button className="btn-secondary flex-1 px-3 sm:flex-none" onClick={() => remove(barber.id)} aria-label="Eliminar"><Trash2 size={16} /></button>
               </div>
             </article>
           ))}

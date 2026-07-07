@@ -48,7 +48,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <section className="container-page py-16">
+    <section className="container-page py-10 sm:py-16">
       <AdminNav />
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
@@ -56,22 +56,22 @@ export default function AdminDashboard() {
           <h1 className="section-title">Panel administrador</h1>
           <p className="mt-3 text-sm text-slate-400">Gestion diaria de turnos, estados y contacto con clientes.</p>
         </div>
-        <input className="input max-w-xs" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+        <input className="input w-full sm:max-w-xs" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       </div>
 
       {summary && (
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[["Turnos", summary.appointments], ["Ocupados", summary.occupied], ["Finalizados", summary.cuts], ["Ganancia", money(summary.revenue)], ["Cancelados", summary.cancelled], ["Tasa cancelacion", `${summary.cancellationRate}%`], ["Cancelo cliente", summary.clientCancelled], ["Tasa cliente", `${summary.clientCancellationRate}%`]].map(([label, value]) => (
-            <div key={label} className="glass-panel rounded-lg p-5">
+            <div key={label} className="glass-panel rounded-lg p-4 sm:p-5">
               <p className="text-sm text-slate-400">{label}</p>
-              <p className="mt-2 text-3xl font-extrabold text-gold">{value}</p>
+              <p className="mt-2 break-words text-2xl font-extrabold text-gold sm:text-3xl">{value}</p>
             </div>
           ))}
         </div>
       )}
 
       {summary?.barberStats?.length > 0 && (
-        <div className="mb-8 glass-panel rounded-lg p-6">
+        <div className="mb-8 glass-panel rounded-lg p-4 sm:p-6">
           <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
             <div>
               <h2 className="text-2xl font-bold">Cierre por barbero</h2>

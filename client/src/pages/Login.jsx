@@ -35,11 +35,11 @@ export default function Login() {
   }
 
   return (
-    <section className="container-page grid min-h-[70vh] place-items-center py-16">
-      <form onSubmit={handleSubmit(onSubmit)} className="glass-panel w-full max-w-md rounded-lg p-8">
+    <section className="container-page grid min-h-[70vh] place-items-center py-10 sm:py-16">
+      <form onSubmit={handleSubmit(onSubmit)} className="glass-panel w-full max-w-md rounded-lg p-5 sm:p-8">
         <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Acceso</p>
-        <h1 className="mt-2 font-display text-4xl font-bold">Iniciar sesion</h1>
-        <div className="mt-6 grid grid-cols-2 gap-2">
+        <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Iniciar sesion</h1>
+        <div className="mt-6 grid gap-2 sm:grid-cols-2">
           <button className="btn-secondary px-3 py-2" type="button" onClick={() => fillDemo("admin@urbanbarber.com", "admin123")}>Admin demo</button>
           <button className="btn-secondary px-3 py-2" type="button" onClick={() => fillDemo("cliente@demo.com", "cliente123")}>Cliente demo</button>
         </div>

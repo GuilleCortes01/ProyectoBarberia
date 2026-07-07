@@ -16,7 +16,7 @@ export default function BarberCard({ barber }) {
           <span className="flex items-center gap-2"><Instagram size={16} className="text-gold" /> {barber.instagram}</span>
           <span>Horarios: lun. a sab. 09:00 - 18:00</span>
         </div>
-        <Link to={`/reservar?barberId=${barber.id}`} className="btn-primary w-full"><CalendarDays size={16} /> Reservar con {barber.name.split(" ")[0]}</Link>
+        <Link to={`/reservar?barberId=${barber.id}`} className="btn-primary w-full"><CalendarDays size={16} /> <span className="truncate">Reservar con {barber.name.split(" ")[0]}</span></Link>
       </div>
     </article>
   );

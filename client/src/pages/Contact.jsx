@@ -2,7 +2,7 @@ import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section className="container-page py-16">
+    <section className="container-page py-10 sm:py-16">
       <div className="mb-10">
         <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Contacto</p>
         <h1 className="section-title">Urban Barber Studio</h1>
@@ -10,12 +10,12 @@ export default function Contact() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
-        <div className="glass-panel rounded-lg p-8">
+        <div className="glass-panel rounded-lg p-5 sm:p-8">
           <div className="space-y-5 text-slate-300">
-            <p className="flex items-center gap-3"><Phone className="text-gold" /> +54 381 555-1234</p>
-            <p className="flex items-center gap-3"><Mail className="text-gold" /> hola@urbanbarber.com</p>
-            <p className="flex items-center gap-3"><Instagram className="text-gold" /> @urbanbarberstudio</p>
-            <p className="flex items-center gap-3"><MapPin className="text-gold" /> Av. Principal 1240, San Miguel de Tucuman</p>
+            <p className="flex items-start gap-3"><Phone className="mt-0.5 shrink-0 text-gold" /> +54 381 555-1234</p>
+            <p className="flex min-w-0 items-start gap-3"><Mail className="mt-0.5 shrink-0 text-gold" /> <span className="break-all">hola@urbanbarber.com</span></p>
+            <p className="flex items-start gap-3"><Instagram className="mt-0.5 shrink-0 text-gold" /> @urbanbarberstudio</p>
+            <p className="flex items-start gap-3"><MapPin className="mt-0.5 shrink-0 text-gold" /> Av. Principal 1240, San Miguel de Tucuman</p>
           </div>
           <div className="mt-8 grid gap-3">
             <a href="https://wa.me/5493815551234" target="_blank" rel="noreferrer" className="btn-primary w-full"><MessageCircle size={18} /> Escribir por WhatsApp</a>

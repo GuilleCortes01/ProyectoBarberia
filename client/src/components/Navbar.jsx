@@ -22,12 +22,12 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-ink/85 backdrop-blur-xl">
-      <div className="container-page flex h-20 items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-md bg-gold text-ink"><Scissors size={23} /></span>
+      <div className="container-page flex h-16 items-center justify-between sm:h-20">
+        <Link to="/" className="flex min-w-0 items-center gap-3">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-gold text-ink sm:h-11 sm:w-11"><Scissors size={23} /></span>
           <span>
-            <span className="block font-display text-xl font-bold leading-none">Urban Barber</span>
-            <span className="text-xs uppercase tracking-[0.22em] text-gold">Studio</span>
+            <span className="block truncate font-display text-lg font-bold leading-none sm:text-xl">Urban Barber</span>
+            <span className="text-[0.65rem] uppercase tracking-[0.18em] text-gold sm:text-xs sm:tracking-[0.22em]">Studio</span>
           </span>
         </Link>
 
@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           {user ? (
             <>
-              <Link to={isAdmin ? "/admin" : "/perfil"} className="btn-secondary py-2"><UserRound size={16} /> {user.name}</Link>
+              <Link to={isAdmin ? "/admin" : "/perfil"} className="btn-secondary max-w-44 py-2"><UserRound size={16} /> <span className="truncate">{user.name}</span></Link>
               <button onClick={logout} className="btn-secondary py-2" aria-label="Cerrar sesion"><LogOut size={16} /></button>
             </>
           ) : (
@@ -60,7 +60,14 @@ export default function Navbar() {
           <div className="container-page grid gap-2 py-4">
             {links.map((link) => <NavLink key={link.to} onClick={() => setOpen(false)} to={link.to} className={navClass}>{link.label}</NavLink>)}
             {user && !isAdmin && <NavLink onClick={() => setOpen(false)} to="/mis-reservas" className={navClass}>Mis reservas</NavLink>}
-            {user ? <button onClick={logout} className="btn-secondary mt-2">Cerrar sesion</button> : <Link to="/login" className="btn-primary mt-2">Ingresar</Link>}
+            {user ? (
+              <button onClick={() => { setOpen(false); logout(); }} className="btn-secondary mt-2 w-full">Cerrar sesion</button>
+            ) : (
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                <Link onClick={() => setOpen(false)} to="/login" className="btn-secondary w-full">Ingresar</Link>
+                <Link onClick={() => setOpen(false)} to="/registro" className="btn-primary w-full">Crear cuenta</Link>
+              </div>
+            )}
           </div>
         </div>
       )}

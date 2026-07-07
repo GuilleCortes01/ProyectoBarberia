@@ -10,9 +10,9 @@ const items = [
 
 export default function AdminNav() {
   return (
-    <div className="mb-8 flex flex-wrap gap-2">
+    <div className="mb-8 -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0">
       {items.map(({ to, label, icon: Icon }) => (
-        <NavLink key={to} to={to} end={to === "/admin"} className={({ isActive }) => `inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-bold transition ${isActive ? "border-gold bg-gold text-ink" : "border-white/10 bg-white/5 text-slate-200 hover:border-gold/60"}`}>
+        <NavLink key={to} to={to} end={to === "/admin"} className={({ isActive }) => `inline-flex shrink-0 items-center gap-2 rounded-md border px-4 py-2 text-sm font-bold transition ${isActive ? "border-gold bg-gold text-ink" : "border-white/10 bg-white/5 text-slate-200 hover:border-gold/60"}`}>
           <Icon size={16} /> {label}
         </NavLink>
       ))}
