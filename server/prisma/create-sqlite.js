@@ -73,6 +73,8 @@ CREATE TABLE appointments (
   time TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'PENDING',
   anyBarber BOOLEAN NOT NULL DEFAULT false,
+  cancelledBy TEXT,
+  hiddenFromClient BOOLEAN NOT NULL DEFAULT false,
   notes TEXT,
   createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updatedAt DATETIME NOT NULL,
@@ -96,7 +98,6 @@ CREATE TABLE business_info (
 );
 
 CREATE UNIQUE INDEX barber_availability_barberId_dayOfWeek_key ON barber_availability(barberId, dayOfWeek);
-CREATE UNIQUE INDEX appointments_barberId_date_time_key ON appointments(barberId, date, time);
 CREATE INDEX appointments_date_idx ON appointments(date);
 CREATE INDEX appointments_status_idx ON appointments(status);
 `);

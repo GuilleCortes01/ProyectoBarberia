@@ -25,7 +25,11 @@ async function main() {
   await prisma.user.createMany({
     data: [
       { name: "Admin Urban", email: "admin@urbanbarber.com", phone: "+54 381 555-0101", passwordHash: adminPassword, role: "ADMIN" },
-      { name: "Cliente Demo", email: "cliente@demo.com", phone: "+54 381 555-0202", passwordHash: clientPassword, role: "CLIENT" }
+      { name: "Cliente Demo", email: "cliente@demo.com", phone: "+54 381 555-0202", passwordHash: clientPassword, role: "CLIENT" },
+      { name: "Sofia Molina", email: "sofia@demo.com", phone: "+54 381 555-0301", passwordHash: clientPassword, role: "CLIENT" },
+      { name: "Bruno Perez", email: "bruno@demo.com", phone: "+54 381 555-0302", passwordHash: clientPassword, role: "CLIENT" },
+      { name: "Tomas Alvarez", email: "tomas@demo.com", phone: "+54 381 555-0303", passwordHash: clientPassword, role: "CLIENT" },
+      { name: "Valentin Rios", email: "valentin@demo.com", phone: "+54 381 555-0304", passwordHash: clientPassword, role: "CLIENT" }
     ]
   });
 
@@ -93,6 +97,91 @@ async function main() {
     }
   }
   await prisma.barberAvailability.createMany({ data: availability });
+
+  const services = await prisma.service.findMany({ orderBy: { price: "asc" } });
+  const clients = await prisma.user.findMany({ where: { role: "CLIENT" }, orderBy: { createdAt: "asc" } });
+  const byService = Object.fromEntries(services.map((service) => [service.name, service]));
+  const today = new Date();
+  const dateOnly = (offset = 0) => new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate() + offset));
+
+  await prisma.appointment.createMany({
+    data: [
+      {
+        clientId: clients[0].id,
+        barberId: barbers[0].id,
+        serviceId: byService["Corte fade"].id,
+        date: dateOnly(0),
+        time: "09:00",
+        status: "FINISHED",
+        anyBarber: false
+      },
+      {
+        clientId: clients[1].id,
+        barberId: barbers[1].id,
+        serviceId: byService["Corte + barba"].id,
+        date: dateOnly(0),
+        time: "10:00",
+        status: "FINISHED",
+        anyBarber: true
+      },
+      {
+        clientId: clients[2].id,
+        barberId: barbers[2].id,
+        serviceId: byService["Perfilado de barba"].id,
+        date: dateOnly(0),
+        time: "11:30",
+        status: "CONFIRMED",
+        anyBarber: false
+      },
+      {
+        clientId: clients[3].id,
+        barberId: barbers[0].id,
+        serviceId: byService["Diseno personalizado"].id,
+        date: dateOnly(0),
+        time: "15:00",
+        status: "PENDING",
+        anyBarber: true
+      },
+      {
+        clientId: clients[4].id,
+        barberId: barbers[1].id,
+        serviceId: byService["Corte clasico"].id,
+        date: dateOnly(0),
+        time: "16:30",
+        status: "CANCELLED",
+        anyBarber: false,
+        cancelledBy: "CLIENT"
+      },
+      {
+        clientId: clients[1].id,
+        barberId: barbers[2].id,
+        serviceId: byService["Corte infantil"].id,
+        date: dateOnly(0),
+        time: "17:00",
+        status: "CANCELLED",
+        anyBarber: false,
+        cancelledBy: "ADMIN"
+      },
+      {
+        clientId: clients[2].id,
+        barberId: barbers[0].id,
+        serviceId: byService["Corte + barba"].id,
+        date: dateOnly(1),
+        time: "09:30",
+        status: "CONFIRMED",
+        anyBarber: true
+      },
+      {
+        clientId: clients[3].id,
+        barberId: barbers[1].id,
+        serviceId: byService["Corte fade"].id,
+        date: dateOnly(1),
+        time: "12:00",
+        status: "PENDING",
+        anyBarber: false
+      }
+    ]
+  });
 
   console.log("Seed listo: Urban Barber Studio demo cargado.");
 }

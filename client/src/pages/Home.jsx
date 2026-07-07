@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CalendarDays, Instagram, MapPin, MessageCircle, Scissors, Star } from "lucide-react";
+import { BarChart3, CalendarDays, Clock, Instagram, MapPin, MessageCircle, Scissors, ShieldCheck, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api/client";
@@ -19,6 +19,29 @@ const highlights = [
   { value: "4.9", label: "valoracion promedio" },
   { value: "+120", label: "cortes por mes" },
   { value: "30 min", label: "turnos agiles" }
+];
+
+const ownerFeatures = [
+  {
+    icon: CalendarDays,
+    title: "Reservas online 24/7",
+    text: "Tus clientes reservan sin escribirte cada horario por WhatsApp."
+  },
+  {
+    icon: Clock,
+    title: "Horarios sin doble reserva",
+    text: "El sistema bloquea turnos ocupados y permite asignar el barbero real."
+  },
+  {
+    icon: BarChart3,
+    title: "Resumen del dia",
+    text: "Cortes, cancelaciones, ganancia total y rendimiento por barbero."
+  },
+  {
+    icon: ShieldCheck,
+    title: "Control para el dueño",
+    text: "Administra servicios, barberos, estados y disponibilidad desde un panel privado."
+  }
 ];
 
 export default function Home() {
@@ -77,17 +100,37 @@ export default function Home() {
       </section>
 
       <section className="container-page py-20">
+        <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Para barberias</p>
+            <h2 className="section-title">Una demo pensada para vender organizacion</h2>
+          </div>
+          <p className="max-w-xl text-sm leading-6 text-slate-400">La identidad visual se personaliza con logo, colores, servicios y fotos de cada local cuando aparece el cliente real.</p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {ownerFeatures.map(({ icon: Icon, title, text }) => (
+            <article key={title} className="glass-panel rounded-lg p-5">
+              <span className="mb-5 grid h-11 w-11 place-items-center rounded-md bg-gold/15 text-gold"><Icon size={21} /></span>
+              <h3 className="text-lg font-bold text-white">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-400">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-page py-20">
         <div className="mb-10"><p className="text-sm font-bold uppercase tracking-[0.2em] text-gold">Galeria</p><h2 className="section-title">Trabajos realizados</h2></div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{gallery.map((src) => <img key={src} src={src} alt="Trabajo de barberia" className="h-72 w-full rounded-lg object-cover" />)}</div>
       </section>
 
       <section className="container-page pb-20">
         <div className="glass-panel grid gap-8 rounded-lg p-8 md:grid-cols-3">
-          <div className="md:col-span-2"><h2 className="section-title">Listo para tu proximo corte</h2><p className="mt-3 text-slate-400">Elegis servicio, barbero, horario disponible y confirmas tu turno en pocos pasos.</p></div>
+          <div className="md:col-span-2"><h2 className="section-title">Listo para mostrar a una barberia real</h2><p className="mt-3 text-slate-400">Podes enseñar el recorrido del cliente, el panel del dueño y explicar que se personaliza con la marca de cada local.</p></div>
           <div className="space-y-3 text-sm text-slate-300">
             <p className="flex items-center gap-2"><Instagram className="text-gold" size={18} /> @urbanbarberstudio</p>
             <p className="flex items-center gap-2"><MapPin className="text-gold" size={18} /> Av. Principal 1240</p>
             {isAdmin ? <Link className="btn-primary w-full" to="/admin">Ver panel</Link> : <Link className="btn-primary w-full" to="/reservar">Reservar ahora</Link>}
+            <a className="btn-secondary w-full" href="https://wa.me/5493815551234?text=Hola,%20quiero%20una%20demo%20de%20sistema%20de%20turnos%20para%20barberia" target="_blank" rel="noreferrer">Quiero una demo asi</a>
           </div>
         </div>
       </section>

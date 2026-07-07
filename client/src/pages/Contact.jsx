@@ -17,7 +17,10 @@ export default function Contact() {
             <p className="flex items-center gap-3"><Instagram className="text-gold" /> @urbanbarberstudio</p>
             <p className="flex items-center gap-3"><MapPin className="text-gold" /> Av. Principal 1240, San Miguel de Tucuman</p>
           </div>
-          <a href="https://wa.me/5493815551234" target="_blank" rel="noreferrer" className="btn-primary mt-8 w-full"><MessageCircle size={18} /> Escribir por WhatsApp</a>
+          <div className="mt-8 grid gap-3">
+            <a href="https://wa.me/5493815551234" target="_blank" rel="noreferrer" className="btn-primary w-full"><MessageCircle size={18} /> Escribir por WhatsApp</a>
+            <a href="https://wa.me/5493815551234?text=Hola,%20quiero%20ver%20una%20demo%20del%20sistema%20para%20mi%20barberia" target="_blank" rel="noreferrer" className="btn-secondary w-full">Quiero un sistema asi</a>
+          </div>
         </div>
 
         <div className="min-h-80 overflow-hidden rounded-lg border border-white/10 bg-smoke">
