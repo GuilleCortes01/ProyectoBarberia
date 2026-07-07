@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  phone        String?
+  passwordHash String
+  role         String        @default("CLIENT")
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("users")
+}
+
+model Barber {
+  id           String               @id @default(cuid())
+  name         String
+  specialty    String
+  description  String
+  instagram    String
+  reference    String
+  photoUrl     String
+  active       Boolean              @default(true)
+  availability BarberAvailability[]
+  appointments Appointment[]
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+
+  @@map("barbers")
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  name         String
+  description  String
+  durationMin  Int
+  price        Decimal
+  active       Boolean       @default(true)
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("services")
+}
+
+model Appointment {
+  id        String            @id @default(cuid())
+  clientId  String
+  barberId  String
+  serviceId String
+  date      DateTime
+  time      String
+  status    String  @default("PENDING")
+  anyBarber Boolean           @default(false)
+  notes     String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  client  User    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  barber  Barber  @relation(fields: [barberId], references: [id])
+  service Service @relation(fields: [serviceId], references: [id])
+
+  @@unique([barberId, date, time])
+  @@index([date])
+  @@index([status])
+  @@map("appointments")
+}
+
+model BarberAvailability {
+  id          String  @id @default(cuid())
+  barberId    String
+  dayOfWeek   Int
+  startTime   String
+  endTime     String
+  slotMinutes Int     @default(30)
+  active      Boolean @default(true)
+
+  barber Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@unique([barberId, dayOfWeek])
+  @@map("barber_availability")
+}
+
+model BusinessInfo {
+  id          String   @id @default(cuid())
+  name        String
+  tagline     String
+  phone       String
+  email       String
+  address     String
+  instagram   String
+  mapUrl      String?
+  openingText String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("business_info")
+}
