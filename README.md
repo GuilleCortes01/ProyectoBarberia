@@ -1,6 +1,6 @@
 # Urban Barber Studio
 
-Sistema demo premium para barberia con React, Tailwind, Express, Prisma y PostgreSQL.
+Sistema demo premium para barberia con React, Tailwind, Express, Prisma y SQLite local.
 
 ## Incluye
 
@@ -9,16 +9,15 @@ Sistema demo premium para barberia con React, Tailwind, Express, Prisma y Postgr
 - Reserva de turnos con validacion de horarios ocupados.
 - Asignacion automatica cuando el cliente elige cualquier barbero disponible.
 - Panel administrador con resumen del dia, reservas, calendario, barberos y servicios.
-- Base PostgreSQL con Prisma ORM.
+- Base local SQLite con Prisma ORM, sin servicios externos ni instalaciones extra.
 - Datos demo listos para vender o mostrar.
 
 ## Estructura
 
 ```txt
-Barberia/
+ProyectoBarberia/
   client/        React + Tailwind
   server/        Express + Prisma + SQLite local
-  docker-compose.yml
   .env.example
 ```
 
@@ -27,9 +26,7 @@ Barberia/
 ```bash
 npm install
 copy .env.example server\.env
-docker compose up -d
-npm run db:push
-npm run db:seed
+npm run db:init
 npm run dev
 ```
 
@@ -40,6 +37,14 @@ Backend: http://localhost:4000/api/health
 
 - Admin: `admin@urbanbarber.com` / `admin123`
 - Cliente: `cliente@demo.com` / `cliente123`
+
+## Base de datos
+
+La demo usa SQLite en `server/prisma/dev.db`. Ese archivo se genera con `npm run db:init` y no se sube a GitHub.
+
+Tablas: `users`, `barbers`, `services`, `appointments`, `barber_availability`, `business_info`.
+
+La tabla `appointments` guarda cliente, barbero asignado, servicio, fecha, hora, estado, si eligio cualquier barbero y fecha de creacion. Tiene una restriccion unica por `barberId + date + time` para impedir doble reserva con el mismo barbero.
 
 ## Endpoints principales
 
@@ -69,9 +74,3 @@ Backend: http://localhost:4000/api/health
 - `PUT|DELETE /api/admin/barbers/:id`
 - `GET|POST /api/admin/services`
 - `PUT|DELETE /api/admin/services/:id`
-
-## Modelo de datos
-
-Tablas: `users`, `barbers`, `services`, `appointments`, `barber_availability`, `business_info`.
-
-La tabla `appointments` guarda cliente, barbero asignado, servicio, fecha, hora, estado, si eligio cualquier barbero y fecha de creacion. Tiene una restriccion unica por `barberId + date + time` para impedir doble reserva con el mismo barbero.
