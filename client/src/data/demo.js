@@ -5,7 +5,7 @@ export const demoBarbers = [
     specialty: "Degradados, fade y cortes modernos",
     description: "Tecnica limpia, terminaciones marcadas y asesoramiento para estilos actuales.",
     instagram: "@mateobarber",
-    reference: "5 anos de experiencia",
+    reference: "5 años de experiencia",
     photoUrl: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=80"
   },
   {

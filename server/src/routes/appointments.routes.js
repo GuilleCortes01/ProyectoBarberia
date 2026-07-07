@@ -76,7 +76,7 @@ router.use(requireAuth);
 router.get("/mine", async (req, res, next) => {
   try {
     const appointments = await prisma.appointment.findMany({
-      where: { clientId: req.user.id },
+      where: { clientId: req.user.id, hiddenFromClient: false },
       include: { barber: true, service: true },
       orderBy: [{ date: "desc" }, { time: "desc" }]
     });
@@ -138,10 +138,28 @@ router.patch("/:id/cancel", async (req, res, next) => {
 
     const updated = await prisma.appointment.update({
       where: { id: appointment.id },
-      data: { status: "CANCELLED" },
+      data: { status: "CANCELLED", cancelledBy: "CLIENT" },
       include: { barber: true, service: true }
     });
     res.json(updated);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const appointment = await prisma.appointment.findFirst({ where: { id: req.params.id, clientId: req.user.id } });
+    if (!appointment) return res.status(404).json({ message: "Reserva no encontrada." });
+    if (appointment.status !== "CANCELLED") {
+      return res.status(400).json({ message: "Solo se pueden eliminar reservas canceladas." });
+    }
+
+    await prisma.appointment.update({
+      where: { id: appointment.id },
+      data: { hiddenFromClient: true }
+    });
+    res.json({ message: "Reserva eliminada de tu vista." });
   } catch (error) {
     next(error);
   }

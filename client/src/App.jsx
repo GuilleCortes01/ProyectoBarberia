@@ -20,9 +20,9 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="registro" element={<Register />} />
-        <Route path="reservar" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
-        <Route path="perfil" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="mis-reservas" element={<ProtectedRoute><MyAppointments /></ProtectedRoute>} />
+        <Route path="reservar" element={<ProtectedRoute clientOnly><Booking /></ProtectedRoute>} />
+        <Route path="perfil" element={<ProtectedRoute clientOnly><Profile /></ProtectedRoute>} />
+        <Route path="mis-reservas" element={<ProtectedRoute clientOnly><MyAppointments /></ProtectedRoute>} />
         <Route path="contacto" element={<Contact />} />
         <Route path="admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} />
         <Route path="admin/calendario" element={<ProtectedRoute adminOnly><AdminCalendar /></ProtectedRoute>} />

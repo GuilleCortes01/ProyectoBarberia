@@ -18,7 +18,13 @@ export default function Login() {
         email: values.email.trim(),
         password: values.password.trim()
       });
-      navigate(location.state?.from?.pathname || (user.role === "ADMIN" ? "/admin" : "/perfil"));
+      const from = location.state?.from?.pathname;
+      const clientOnlyPaths = ["/reservar", "/mis-reservas", "/perfil"];
+      if (user.role === "ADMIN" && clientOnlyPaths.includes(from)) {
+        navigate("/");
+        return;
+      }
+      navigate(from || (user.role === "ADMIN" ? "/admin" : "/perfil"));
     } catch (err) {
       setError(getErrorMessage(err));
     }

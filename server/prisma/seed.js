@@ -49,7 +49,7 @@ async function main() {
         specialty: "Degradados, fade y cortes modernos",
         description: "Tecnica limpia, terminaciones marcadas y asesoramiento para estilos actuales.",
         instagram: "@mateobarber",
-        reference: "5 anos de experiencia",
+        reference: "5 años de experiencia",
         photoUrl: photos.mateo
       }
     }),

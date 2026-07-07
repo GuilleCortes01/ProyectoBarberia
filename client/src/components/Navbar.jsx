@@ -1,17 +1,22 @@
-import { CalendarDays, LayoutDashboard, LogOut, Menu, Scissors, UserRound, X } from "lucide-react";
+import { CalendarDays, LogOut, Menu, Scissors, UserRound, X } from "lucide-react";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const links = [
-  { to: "/", label: "Inicio" },
-  { to: "/reservar", label: "Reservar" },
-  { to: "/contacto", label: "Contacto" }
-];
-
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { user, isAdmin, logout } = useAuth();
+  const links = isAdmin
+    ? [
+        { to: "/", label: "Inicio" },
+        { to: "/contacto", label: "Contacto" },
+        { to: "/admin", label: "Panel admin" }
+      ]
+    : [
+        { to: "/", label: "Inicio" },
+        { to: "/reservar", label: "Reservar" },
+        { to: "/contacto", label: "Contacto" }
+      ];
 
   const navClass = ({ isActive }) => `rounded-md px-3 py-2 text-sm font-semibold transition ${isActive ? "bg-white/10 text-gold" : "text-slate-300 hover:text-white"}`;
 
@@ -28,8 +33,7 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-1 md:flex">
           {links.map((link) => <NavLink key={link.to} to={link.to} className={navClass}>{link.label}</NavLink>)}
-          {user && <NavLink to="/mis-reservas" className={navClass}>Mis reservas</NavLink>}
-          {isAdmin && <NavLink to="/admin" className={navClass}>Admin</NavLink>}
+          {user && !isAdmin && <NavLink to="/mis-reservas" className={navClass}>Mis reservas</NavLink>}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
@@ -55,8 +59,7 @@ export default function Navbar() {
         <div className="border-t border-white/10 bg-charcoal md:hidden">
           <div className="container-page grid gap-2 py-4">
             {links.map((link) => <NavLink key={link.to} onClick={() => setOpen(false)} to={link.to} className={navClass}>{link.label}</NavLink>)}
-            {user && <NavLink onClick={() => setOpen(false)} to="/mis-reservas" className={navClass}>Mis reservas</NavLink>}
-            {isAdmin && <NavLink onClick={() => setOpen(false)} to="/admin" className={navClass}>Admin</NavLink>}
+            {user && !isAdmin && <NavLink onClick={() => setOpen(false)} to="/mis-reservas" className={navClass}>Mis reservas</NavLink>}
             {user ? <button onClick={logout} className="btn-secondary mt-2">Cerrar sesion</button> : <Link to="/login" className="btn-primary mt-2">Ingresar</Link>}
           </div>
         </div>

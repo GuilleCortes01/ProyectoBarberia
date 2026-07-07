@@ -103,3 +103,5 @@ CREATE INDEX appointments_status_idx ON appointments(status);
 
 db.close();
 console.log(`SQLite listo en ${dbPath}`);
+
+
